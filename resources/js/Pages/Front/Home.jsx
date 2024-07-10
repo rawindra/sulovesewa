@@ -1,11 +1,7 @@
-import Navbar from '@/Components/partials/Navbar'
 import CategoryNavWithSlider from '@/Components/ui/CategoryNav'
 import ProductCard from '@/Components/ui/ProductCard'
 import FrontLayout from '@/Layouts/FrontLayout'
-import { Head } from '@inertiajs/react'
-import { Button, Card } from 'antd'
-import Meta from 'antd/es/card/Meta'
-import React from 'react'
+import { Head, Link } from '@inertiajs/react'
 
 const Home = () => {
     return (
@@ -16,16 +12,20 @@ const Home = () => {
                 <h3>OUR PRODUCTS</h3>
             </div>
             <div className='flex gap-3 p-6'>
-                <ProductCard
-                    src={"https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"}
-                    name={"BASKIN ROBINS I/CREAM MINT MILK CHOCOLATE 450ML"}
-                    price={"Rs. 5000"}
-                />
-                <ProductCard
-                    src={"https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"}
-                    name={"DRUK MAYONNAISE 360GM"}
-                    price={"Rs. 5000"}
-                />
+                <Link href={"/product/show"}>
+                    <ProductCard
+                        src={"https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"}
+                        name={"BASKIN ROBINS I/CREAM MINT MILK CHOCOLATE 450ML"}
+                        price={"Rs. 5000"}
+                    />
+                </Link>
+                <Link href={"/product/show"}>
+                    <ProductCard
+                        src={"https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"}
+                        name={"DRUK MAYONNAISE 360GM"}
+                        price={"Rs. 5000"}
+                    />
+                </Link>
                 <ProductCard
                     src={"https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"}
                     name={"DRUK MAYONNAISE 360GM"}
