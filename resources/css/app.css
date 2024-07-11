@@ -34,3 +34,34 @@
     border-radius: 0.5rem;
     color: orangered;
 }
+
+.btn-sm {
+    height: 2rem;
+    min-height: 2rem;
+    padding-left: .75rem;
+    padding-right: .75rem;
+    font-size: .875rem;
+}
+
+.btn-xs {
+    height: 1.5rem;
+    min-height: 1.5rem;
+    padding-left: .5rem;
+    padding-right: .5rem;
+    font-size: .75rem;
+}
+
+
+.table {
+    position: relative;
+    width: 100%;
+    border-radius: var(--rounded-box, 1rem);
+    text-align: left;
+    font-size: .875rem;
+    line-height: 1.25rem;
+}
+
+table :where(th, td) {
+    padding: .75rem 1rem;
+    vertical-align: middle;
+}

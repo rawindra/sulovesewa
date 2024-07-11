@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Layout, Menu, theme } from 'antd';
-import { Link, router } from '@inertiajs/react';
+import { Link, router, usePage } from '@inertiajs/react';
 import { FaPowerOff } from 'react-icons/fa';
 
 const { Header, Content, Sider } = Layout;
@@ -23,15 +23,29 @@ const items = [
     },
 ]
 
-const navigate = (e) => {
-    router.visit(e.key)
-}
-
 
 const Authenticated = ({ user, children }) => {
     const {
         token: { colorBgContainer, borderRadiusLG },
     } = theme.useToken();
+
+
+    const navigate = (e) => {
+        router.visit(e.key)
+    }
+
+    const { url } = usePage()
+
+    const findBestMatch = (url, items) => {
+        let bestMatch = '';
+        items.forEach(item => {
+            if (url.startsWith(item.key) && item.key.length > bestMatch.length) {
+                bestMatch = item.key;
+            }
+        });
+        return bestMatch;
+    };
+
     return (
         <Layout>
             <Sider
@@ -45,7 +59,7 @@ const Authenticated = ({ user, children }) => {
                 }}
             >
                 <div className="text-orange-500 font-bold text-2xl text-center p-4" >SuLoveSewa</div>
-                <Menu theme="dark" mode="inline" defaultSelectedKeys={['/admin/dashboard']} items={items} onClick={navigate} />
+                <Menu theme="dark" mode="inline" defaultSelectedKeys={[findBestMatch(url, items)]} items={items} onClick={navigate} />
             </Sider>
             <Layout>
                 <Header
