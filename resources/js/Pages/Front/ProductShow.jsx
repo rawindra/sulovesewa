@@ -54,7 +54,7 @@ const ProductShow = () => {
 
                 <div className="container mt-6 border-b border-gray-200">
                     <h3 className="border-b border-gray-200 font-roboto text-orange-800 pt-3 pb-3 font-medium">Product Description</h3>
-                    <div className="w-3/5 pt-4 pb-4">
+                    <div className="md:w-3/5 pt-4 pb-4">
                         <p>This is a test product description</p>
                     </div>
                 </div>

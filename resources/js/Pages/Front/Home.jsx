@@ -8,18 +8,18 @@ const Home = () => {
         <FrontLayout>
             <Head title="Home" />
             <CategoryNavWithSlider />
-            <div className='text-2xl mt-8 text-white text-orange-500 font-bold h-10 p-1 text-center'>
+            <div className='text-2xl mt-8 text-orange-500 font-bold h-10 p-1 text-center'>
                 <h3>OUR PRODUCTS</h3>
             </div>
-            <div className='flex gap-3 p-6'>
-                <Link href={"/product/show"}>
+            <div className='grid grid-cols-1 md:grid-cols-6 gap-3 p-6'>
+                <Link href={"/product/show"} className='m-auto'>
                     <ProductCard
                         src={"https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"}
                         name={"BASKIN ROBINS I/CREAM MINT MILK CHOCOLATE 450ML"}
                         price={"Rs. 5000"}
                     />
                 </Link>
-                <Link href={"/product/show"}>
+                <Link href={"/product/show"} className='m-auto'>
                     <ProductCard
                         src={"https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"}
                         name={"DRUK MAYONNAISE 360GM"}

@@ -74,7 +74,7 @@ const onClick = (e) => {
 };
 const CategoryNavWithSlider = () => (
     <div className='bg-orange-500'>
-        <div className='p-2 bg-gray-200 '>
+        <div className='hidden md:block p-2 bg-gray-200 '>
             <div className='mx-auto w-3/4 flex items-center justify-between'>
                 <span>All Categories</span>
                 <div className='flex gap-2'>
@@ -84,8 +84,8 @@ const CategoryNavWithSlider = () => (
                 </div>
             </div>
         </div>
-        <div className='w-4/5 mx-auto grid grid-cols-1 md:grid-cols-[20%_80%]'>
-            <div className='mx-auto w-2/2'>
+        <div className='md:w-4/5 mx-auto grid grid-cols-1 md:grid-cols-[20%_80%]'>
+            <div className='hidden md:block mx-auto w-2/2'>
                 <Menu
                     onClick={onClick}
                     style={{
