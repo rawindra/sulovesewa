@@ -1,13 +1,16 @@
 import React from 'react'
 
-import { Link } from '@inertiajs/react'
-import { Avatar, Badge } from 'antd'
+import { Link, usePage } from '@inertiajs/react'
+import { Badge } from 'antd'
 
-import { FaSearch } from "react-icons/fa";
+import { FaPowerOff, FaSearch } from "react-icons/fa";
 import { FaCartArrowDown } from "react-icons/fa";
 
 
 const Navbar = () => {
+
+    const auth = usePage().props.auth
+
     return (
         <div className="p-6  bg-orange-500">
             <div className='flex items-center justify-between'>
@@ -19,7 +22,14 @@ const Navbar = () => {
                     <input type="search" className="w-[300px] md:w-[400px] focus:outline-none p-2 pl-10 text-sm dark:text-gray-900 rounded-lg" name="search" placeholder="Search Products..." />
                 </div>
                 <div className="flex items-center">
-                    <button className="font-medium bg-white text-sm text-orange-500 py-2 px-10 border rounded-md mx-5 ">Login</button>
+                    {auth.user ? (
+                        <Link as='button' href={route('logout')} className='text-green-600 mr-3' method='post'>
+                            <FaPowerOff size={20} />
+                        </Link>
+                    ) : <a href='/login/google'>
+                        <button className="font-medium bg-white text-sm text-orange-500 py-2 px-10 border rounded-md mx-5 ">Login</button>
+                    </a>}
+
                     <Link className='pt-2'>
                         <Badge count={1}>
                             <FaCartArrowDown size={30} className='text-white' />
