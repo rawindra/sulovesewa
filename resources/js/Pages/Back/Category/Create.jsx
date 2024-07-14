@@ -26,7 +26,6 @@ export default function Create({ auth, categories }) {
 
                 <label>Parent Category</label>
                 <Select
-                    // showSearch
                     placeholder="Select a parent category"
                     optionFilterProp="label"
                     value={data.parent_id}
