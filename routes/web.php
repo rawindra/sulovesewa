@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\CategoryController;
+use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Backend\ProductController;
+use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\GoogleLoginController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -30,6 +32,10 @@ Route::middleware('auth')->prefix('admin')->as('admin.')->group(function () {
     Route::resource('brands', BrandController::class);
     Route::resource('categories', CategoryController::class);
     Route::resource('products', ProductController::class);
+    Route::resource('sliders', SliderController::class);
+    Route::post('sliders/{slider}/changeStatus', [SliderController::class, 'changeStatus'])->name('sliders.changeStatus');
+    Route::resource('orders', OrderController::class);
+    Route::post('orders/{order}/changeStatus', [OrderController::class, 'changeStatus'])->name('orders.changeStatus');
 });
 
 Route::get('/login/google', [GoogleLoginController::class, 'redirectToGoogle'])->name('auth.google');
