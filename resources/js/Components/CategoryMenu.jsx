@@ -4,6 +4,8 @@ import { Menu } from 'antd';
 import { usePage } from '@inertiajs/react';
 
 const buildMenuItems = (categories) => {
+    console.log("🚀 ~ buildMenuItems ~ categories:", categories)
+
     const categoryMap = {};
 
     // Create a map of category ID to category object
