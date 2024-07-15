@@ -2,8 +2,19 @@ import BreadCrumb from '@/Components/ui/BreadCrumb'
 import Review from '@/Components/ui/Review'
 import FrontLayout from '@/Layouts/FrontLayout'
 import { Head } from '@inertiajs/react'
+import { useState } from 'react'
+
 
 const ProductShow = ({ app, product }) => {
+    const [quantity, setQuantity] = useState(1)
+
+    const addQuantity = () => {
+        setQuantity(prevQuantity => prevQuantity + 1)
+    }
+
+    const subtractQuantity = () => {
+        setQuantity(prevQuantity => prevQuantity > 1 ? prevQuantity - 1 : 1)
+    }
     return (
         <FrontLayout>
             <Head title="Product Show" />
@@ -36,9 +47,9 @@ const ProductShow = ({ app, product }) => {
                             <div className='flex gap-2 items-center'>
                                 <h3 className="text-sm text-orange-800 uppercase mb-1">Quantity</h3>
                                 <div className="flex border border-gray-300 text-gray-600 divide-x divide-gray-300 w-max">
-                                    <div className="h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none">-</div>
-                                    <div className="h-8 w-8  text-base flex items-center justify-center">1</div>
-                                    <div className="h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none">+</div>
+                                    <div className="h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none" onClick={subtractQuantity}>-</div>
+                                    <div className="h-8 w-8  text-base flex items-center justify-center">{quantity}</div>
+                                    <div className="h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none" onClick={addQuantity}>+</div>
                                 </div>
                             </div>
                         </div>
