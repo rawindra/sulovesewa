@@ -1,13 +1,16 @@
+import CategoryMenu from '@/Components/CategoryMenu'
 import CategoryNavWithSlider from '@/Components/ui/CategoryNav'
 import ProductCard from '@/Components/ui/ProductCard'
 import FrontLayout from '@/Layouts/FrontLayout'
 import { Head, Link } from '@inertiajs/react'
 
-const Home = () => {
+const Home = ({ categories }) => {
+    // console.log(categories);
     return (
         <FrontLayout>
             <Head title="Home" />
-            <CategoryNavWithSlider />
+            {/* <CategoryNavWithSlider /> */}
+            <CategoryMenu  categories={categories} />
             <div className='text-2xl mt-8 text-orange-500 font-bold h-10 p-1 text-center'>
                 <h3>OUR PRODUCTS</h3>
             </div>
