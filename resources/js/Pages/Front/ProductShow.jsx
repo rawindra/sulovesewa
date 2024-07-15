@@ -1,19 +1,32 @@
 import BreadCrumb from '@/Components/ui/BreadCrumb'
 import Review from '@/Components/ui/Review'
 import FrontLayout from '@/Layouts/FrontLayout'
-import { Head } from '@inertiajs/react'
+import { Head, router, useForm } from '@inertiajs/react'
 import { useState } from 'react'
 
 
 const ProductShow = ({ app, product }) => {
+    
     const [quantity, setQuantity] = useState(1)
 
+    const { data, setData } = useForm({
+        product_id: product.id,
+        quantity: quantity,
+    });
     const addQuantity = () => {
         setQuantity(prevQuantity => prevQuantity + 1)
     }
 
     const subtractQuantity = () => {
         setQuantity(prevQuantity => prevQuantity > 1 ? prevQuantity - 1 : 1)
+    }
+
+    const submit = (e) => {
+        e.preventDefault();
+        router.post(route('cart.store'), {
+           ...data,
+            quantity: quantity,
+        });
     }
     return (
         <FrontLayout>
@@ -55,6 +68,7 @@ const ProductShow = ({ app, product }) => {
                         </div>
                         <div className='mt-4'>
                             <button
+                                onClick={submit}
                                 className="bg-orange-500 text-white border border-primary  px-8 py-2 font-medium rounded uppercase flex items-center gap-2 hover:bg-green-600">
                                 Add to cart
                             </button>
