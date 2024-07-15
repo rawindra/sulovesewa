@@ -20,7 +20,7 @@ class HomeController extends Controller
 
     public function product(Product $product) {
         return Inertia::render('Front/ProductShow', [
-            'product' => $product,
+            'product' => $product->load('category', 'brand'),
         ]);
     }
 }
