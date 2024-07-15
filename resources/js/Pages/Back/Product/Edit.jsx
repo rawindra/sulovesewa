@@ -84,7 +84,7 @@ export default function Edit({ auth, brands, categories, product }) {
                 {errors.image && <span className='text-red-500'>{errors.image}</span>}
 
                 <div className='mt-2'>
-                    <PrimaryButton disabled={processing}>Create</PrimaryButton>
+                    <PrimaryButton disabled={processing}>Update</PrimaryButton>
                 </div>
             </form>
         </AuthenticatedLayout>

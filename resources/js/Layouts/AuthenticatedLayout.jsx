@@ -21,6 +21,14 @@ const items = [
         key: '/admin/products',
         label: 'Products',
     },
+    {
+        key: '/admin/orders',
+        label: 'Orders',
+    },
+    {
+        key: '/admin/sliders',
+        label: 'Sliders',
+    },
 ]
 
 
