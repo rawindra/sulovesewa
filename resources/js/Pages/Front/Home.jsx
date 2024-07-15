@@ -15,7 +15,7 @@ const Home = ({ app, categories, products }) => {
             </div>
             <div className='grid grid-cols-1 md:grid-cols-6 gap-3 p-6'>
                 {products.data.map(product => (
-                    <Link href={"/product/show"} className='m-auto' key={product.id}>
+                    <Link href={route('view.product', product)} className='m-auto' key={product.id}>
                         <ProductCard
                             src={app.storage_url + '/' + product.image}
                             name={product.name}
