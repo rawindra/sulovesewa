@@ -17,4 +17,10 @@ class HomeController extends Controller
             'products' => Product::paginate(10)
         ]);
     }
+
+    public function product(Product $product) {
+        return Inertia::render('Front/ProductShow', [
+            'product' => $product->load('category', 'brand'),
+        ]);
+    }
 }

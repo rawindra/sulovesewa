@@ -10,10 +10,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', [HomeController::class, 'home'])->name('home');
-
-Route::get('/product/show', function () {
-    return Inertia::render('Front/ProductShow');
-});
+Route::get('/product/show/{product}', [HomeController::class, 'product'])->name('view.product');
 
 Route::get('/admin/dashboard', function () {
     return Inertia::render('Back/Dashboard');

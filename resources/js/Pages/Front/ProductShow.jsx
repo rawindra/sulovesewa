@@ -3,7 +3,7 @@ import Review from '@/Components/ui/Review'
 import FrontLayout from '@/Layouts/FrontLayout'
 import { Head } from '@inertiajs/react'
 
-const ProductShow = () => {
+const ProductShow = ({ app, product }) => {
     return (
         <FrontLayout>
             <Head title="Product Show" />
@@ -11,11 +11,11 @@ const ProductShow = () => {
                 <BreadCrumb category="Category Name" title="Product Detail" />
                 <div className="container grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className='flex justify-center'>
-                        <img src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" className="w-[400px] h-[400px]" />
+                        <img src={app.storage_url + '/' + product.image} className="w-[400px] h-[400px]" />
                     </div>
 
                     <div className='flex flex-col justify-center'>
-                        <h2 className="text-3xl font-medium uppercase mb-2">Product Name</h2>
+                        <h2 className="text-3xl font-medium uppercase mb-2">{product.name.toUpperCase()}</h2>
                         <div className="space-y-2">
                             <p className="text-orange-800 font-semibold space-x-2">
                                 <span>Availability: </span>
@@ -23,14 +23,14 @@ const ProductShow = () => {
                             </p>
                             <p className="space-x-2">
                                 <span className="text-orange-800 font-semibold">Brand: </span>
-                                <span className="text-gray-600">"Brand Name"</span>
+                                <span className="text-gray-600">{product.brand.name}</span>
                             </p>
                             <p className="space-x-2">
                                 <span className="text-orange-800 font-semibold">Category: </span>
-                                <span className="text-gray-600">"Category Name"</span>
+                                <span className="text-gray-600">{product.category.name}</span>
                             </p>
                             <div className="flex items-baseline space-x-2 font-roboto">
-                                <p className="text-xl text-primary font-semibold">Rs 500</p>
+                                <p className="text-xl text-primary font-semibold">Rs {product.price}</p>
                             </div>
 
                             <div className='flex gap-2 items-center'>
@@ -55,7 +55,7 @@ const ProductShow = () => {
                 <div className="container mt-6 border-b border-gray-200">
                     <h3 className="border-b border-gray-200 font-roboto text-orange-800 pt-3 pb-3 font-medium">Product Description</h3>
                     <div className="md:w-3/5 pt-4 pb-4">
-                        <p>This is a test product description</p>
+                        <p>{product.description}</p>
                     </div>
                 </div>
 
