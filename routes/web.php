@@ -5,18 +5,14 @@ use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\SliderController;
+use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\GoogleLoginController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', function () {
-    return Inertia::render('Front/Home');
-});
-
-Route::get('/product/show', function () {
-    return Inertia::render('Front/ProductShow');
-});
+Route::get('/', [HomeController::class, 'home'])->name('home');
+Route::get('/product/show/{product}', [HomeController::class, 'product'])->name('view.product');
 
 Route::get('/admin/dashboard', function () {
     return Inertia::render('Back/Dashboard');
