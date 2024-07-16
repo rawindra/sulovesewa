@@ -13,15 +13,20 @@ use Inertia\Inertia;
 
 class HomeController extends Controller
 {
-    public function home() {
-        $categories = Category::all();
+    public function home()
+    {
+        $categories = Category::whereNull('parent_id')
+            ->with('children')
+            ->get();
+
         return Inertia::render('Front/Home', [
             'categories' => $categories,
             'products' => Product::paginate(10)
         ]);
     }
 
-    public function product(Product $product) {
+    public function product(Product $product)
+    {
         return Inertia::render('Front/ProductShow', [
             'product' => $product->load('category', 'brand'),
         ]);
@@ -29,7 +34,7 @@ class HomeController extends Controller
 
     public function cart(Request $request)
     {
-        
+
         $carts = Cart::where('user_id', auth()->user()->id)->where('product_id', $request->product_id)->first();
         if ($carts) {
             $cart = Cart::find($carts->id);
@@ -50,7 +55,7 @@ class HomeController extends Controller
     public function review(Request $request)
     {
         $validated = request()->validate([
-            'rating' => ['required', 'numeric','min:1','max:5'],
+            'rating' => ['required', 'numeric', 'min:1', 'max:5'],
             'review' => ['required', 'string', 'max:255'],
             'product' => ['required', Rule::exists(Product::class, 'id')]
         ]);

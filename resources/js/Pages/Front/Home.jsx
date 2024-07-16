@@ -1,4 +1,3 @@
-import CategoryMenu from '@/Components/CategoryMenu'
 import CategoryNavWithSlider from '@/Components/ui/CategoryNav'
 import ProductCard from '@/Components/ui/ProductCard'
 import FrontLayout from '@/Layouts/FrontLayout'
@@ -8,8 +7,7 @@ const Home = ({ app, categories, products }) => {
     return (
         <FrontLayout>
             <Head title="Home" />
-            {/* <CategoryNavWithSlider /> */}
-            <CategoryMenu  categories={categories} />
+            <CategoryNavWithSlider categories={categories} />
             <div className='text-2xl mt-8 text-orange-500 font-bold h-10 p-1 text-center'>
                 <h3>OUR PRODUCTS</h3>
             </div>
@@ -23,7 +21,7 @@ const Home = ({ app, categories, products }) => {
                         />
                     </Link>
                 ))}
-               
+
             </div>
         </FrontLayout>
     )
