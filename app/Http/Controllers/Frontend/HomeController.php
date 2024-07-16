@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Review;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 
 class HomeController extends Controller
@@ -42,6 +44,23 @@ class HomeController extends Controller
             $cart->quantity = $request->quantity;
             $cart->save();
         }
+        return redirect()->back();
+    }
+
+    public function review(Request $request)
+    {
+        $validated = request()->validate([
+            'rating' => ['required', 'numeric','min:1','max:5'],
+            'review' => ['required', 'string', 'max:255'],
+            'product' => ['required', Rule::exists(Product::class, 'id')]
+        ]);
+        $review = new Review();
+        $review->rating = $validated['rating'];
+        $review->review = $validated['review'];
+        $review->user_id = auth()->user()->id;
+        $review->product_id = $validated['product'];
+        $review->save();
+
         return redirect()->back();
     }
 }
