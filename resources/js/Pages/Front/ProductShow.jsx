@@ -5,7 +5,7 @@ import { Head, router, useForm } from '@inertiajs/react'
 import { useState } from 'react'
 
 
-const ProductShow = ({ app, product, reviews, avgRating, totalRating }) => {
+const ProductShow = ({ app, cartItems, product, reviews, avgRating, totalRating }) => {
 
     const [quantity, setQuantity] = useState(1)
 
@@ -29,7 +29,7 @@ const ProductShow = ({ app, product, reviews, avgRating, totalRating }) => {
         });
     }
     return (
-        <FrontLayout>
+        <FrontLayout cartItems={cartItems}>
             <Head title="Product Show" />
             <div className=" p-4 m-auto md:px-40">
                 <BreadCrumb category="Category Name" title="Product Detail" />

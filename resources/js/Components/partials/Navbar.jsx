@@ -11,7 +11,7 @@ import { FaCartArrowDown } from "react-icons/fa";
 const Navbar = ({ app, cartItems }) => {
   const auth = usePage().props.auth;
   const { data, setData, post } = useForm({
-    cartItems: []
+    cartItems: [],
   });
   const [open, setOpen] = useState(false);
   const showDrawer = () => {
@@ -23,7 +23,7 @@ const Navbar = ({ app, cartItems }) => {
 
   const proceedOrder = (e) => {
     e.preventDefault();
-    post('place/order')
+    post("place/order");
   };
   return (
     <div className="p-6  bg-orange-500">
@@ -62,7 +62,7 @@ const Navbar = ({ app, cartItems }) => {
           )}
 
           <button className="pt-2" onClick={showDrawer}>
-            <Badge count={cartItems.length}>
+            <Badge count={cartItems?.length}>
               <FaCartArrowDown size={30} className="text-white" />
             </Badge>
           </button>
@@ -96,7 +96,6 @@ const Navbar = ({ app, cartItems }) => {
           </Button>
         }
       >
-        
         <Divider />
         <List
           itemLayout="horizontal"
