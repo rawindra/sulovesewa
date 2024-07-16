@@ -32,7 +32,7 @@ class HomeController extends Controller
         return Inertia::render("Front/Home", [
             "categories" => $categories,
             "products" => Product::paginate(10),
-            "cartItems" => $cartItems,,
+            "cartItems" => $cartItems,
             'sliders' => Slider::where('status', 1)->get(),
         ]);
     }
