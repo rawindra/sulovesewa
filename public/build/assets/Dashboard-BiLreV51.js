@@ -1,1 +1,0 @@
-import{j as r,Y as o}from"./app-C5aQXtj4.js";import{A as e}from"./AuthenticatedLayout-H0Jw6ZYV.js";import"./index-DORmM16D.js";import"./index-BtetBG5f.js";function n({auth:t}){return r.jsxs(e,{user:t.user,children:[r.jsx(o,{title:"Dashboard"}),r.jsx("p",{children:"You're logged in!"})]})}export{n as default};
