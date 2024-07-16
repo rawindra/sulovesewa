@@ -1,5 +1,6 @@
 import React from 'react';
 import { Carousel } from 'antd';
+import { usePage } from '@inertiajs/react';
 const contentStyle = {
     margin: 0,
     height: '400px',
@@ -8,16 +9,16 @@ const contentStyle = {
     background: '#364d79',
     width: '100%'
 };
-const AntCarousel = () => {
+const AntCarousel = ({ sliders }) => {
+    const { app } = usePage().props
 
     return (
         <Carousel autoplay>
-            <div>
-                <img src='https://www.shutterstock.com/image-photo/online-grocery-shopping-home-delivery-260nw-2151476607.jpg' style={contentStyle} />
-            </div>
-            <div>
-                <img src="https://www.shutterstock.com/image-photo/fresh-healthy-food-vegetables-grocery-260nw-1175684464.jpg" style={contentStyle} />
-            </div>
+            {sliders.map((slider, index) => (
+                <div key={index}>
+                    <img src={app.storage_url + '/' + slider.image} style={contentStyle} />
+                </div>
+            ))}
         </Carousel>
     );
 };

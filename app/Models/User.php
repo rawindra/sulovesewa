@@ -45,4 +45,14 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    protected function authenticated()
+    {
+        if (auth()->user()->is_admin) {
+            return redirect('admin/dashboard');
+        }
+
+        return redirect()->intendent('/');
+    }
+
 }

@@ -3,11 +3,11 @@ import ProductCard from "@/Components/ui/ProductCard";
 import FrontLayout from "@/Layouts/FrontLayout";
 import { Head, Link } from "@inertiajs/react";
 
-const Home = ({ app, categories, products, cartItems }) => {
+const Home = ({ app, categories, products, cartItems, sliders }) => {
   return (
     <FrontLayout cartItems={cartItems}>
       <Head title="Home" />
-      <CategoryNavWithSlider categories={categories} />
+      <CategoryNavWithSlider categories={categories} sliders={sliders} />
       <div className="text-2xl mt-8 text-orange-500 font-bold h-10 p-1 text-center">
         <h3>OUR PRODUCTS</h3>
       </div>

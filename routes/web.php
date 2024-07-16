@@ -15,6 +15,7 @@ Route::get('/', [HomeController::class, 'home'])->name('home');
 Route::get('/product/show/{product}', [HomeController::class, 'product'])->name('view.product');
 Route::post('/cart/add', [HomeController::class, 'cart'])->middleware('auth')->name('cart.store');
 Route::post('/place/order', [HomeController::class, 'order'])->middleware('auth')->name('place.order');
+Route::post('submit-review', [HomeController::class, 'storeReview'])->name('reviews.submit');
 
 Route::get('/admin/dashboard', function () {
     return Inertia::render('Back/Dashboard');

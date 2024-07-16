@@ -5,8 +5,8 @@ import { Head, router, useForm } from '@inertiajs/react'
 import { useState } from 'react'
 
 
-const ProductShow = ({ app, product }) => {
-    
+const ProductShow = ({ app, product, reviews, avgRating, totalRating }) => {
+
     const [quantity, setQuantity] = useState(1)
 
     const { data, setData } = useForm({
@@ -24,7 +24,7 @@ const ProductShow = ({ app, product }) => {
     const submit = (e) => {
         e.preventDefault();
         router.post(route('cart.store'), {
-           ...data,
+            ...data,
             quantity: quantity,
         });
     }
@@ -85,7 +85,7 @@ const ProductShow = ({ app, product }) => {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2">
-                    <Review />
+                    <Review product={product} avgRating={avgRating} reviews={reviews} totalRating={totalRating} />
                 </div>
             </div>
         </FrontLayout>

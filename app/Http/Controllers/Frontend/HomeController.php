@@ -9,6 +9,10 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Review;
+use App\Models\Slider;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 use Ramsey\Uuid\Codec\OrderedTimeCodec;
 
@@ -28,14 +32,20 @@ class HomeController extends Controller
         return Inertia::render("Front/Home", [
             "categories" => $categories,
             "products" => Product::paginate(10),
-            "cartItems" => $cartItems,
+            "cartItems" => $cartItems,,
+            'sliders' => Slider::where('status', 1)->get(),
         ]);
     }
 
     public function product(Product $product)
     {
+        $reviews = $product->reviews;
+
         return Inertia::render("Front/ProductShow", [
             "product" => $product->load("category", "brand"),
+            'reviews' => $reviews->load('user'),
+            'avgRating' => ceil($reviews->avg('rating')),
+            'totalRating' => $reviews->count('rating'),
         ]);
     }
 
@@ -85,4 +95,21 @@ class HomeController extends Controller
         return redirect()->back();
     }
     
+
+    public function storeReview(Request $request)
+    {
+        $validated = request()->validate([
+            'rating' => ['required', 'numeric', 'min:1', 'max:5'],
+            'review' => ['required', 'string', 'max:255'],
+            'product' => ['required', Rule::exists(Product::class, 'id')]
+        ]);
+        $review = new Review();
+        $review->rating = $validated['rating'];
+        $review->review = $validated['review'];
+        $review->user_id = auth()->user()->id;
+        $review->product_id = $validated['product'];
+        $review->save();
+
+        return redirect()->back();
+    }
 }
