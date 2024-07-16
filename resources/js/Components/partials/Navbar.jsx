@@ -1,21 +1,29 @@
 import React, { useState } from "react";
 
-import { Link, usePage } from "@inertiajs/react";
-import { Badge, Drawer } from "antd";
+import { Link, useForm, usePage } from "@inertiajs/react";
+import { Badge, Drawer, Divider, List, Avatar, Button } from "antd";
 
 import { FaPowerOff, FaSearch } from "react-icons/fa";
 import { FaCartArrowDown } from "react-icons/fa";
 
 // const cartItems = [];
 
-const Navbar = ({ cartItems }) => {
+const Navbar = ({ app, cartItems }) => {
   const auth = usePage().props.auth;
+  const { data, setData, post } = useForm({
+    cartItems: []
+  });
   const [open, setOpen] = useState(false);
   const showDrawer = () => {
     setOpen(true);
   };
   const onClose = () => {
     setOpen(false);
+  };
+
+  const proceedOrder = (e) => {
+    e.preventDefault();
+    post('place/order')
   };
   return (
     <div className="p-6  bg-orange-500">
@@ -73,15 +81,47 @@ const Navbar = ({ cartItems }) => {
         />
       </div>
       <Drawer
-        title="Cart"
+        title="My Cart"
         placement="right"
         closable={false}
         onClose={onClose}
         open={open}
+        footer={
+          <Button
+            type="primary"
+            className="place-content-start"
+            onClick={proceedOrder}
+          >
+            Place Order
+          </Button>
+        }
       >
-        {cartItems.map((cartItem, index) => (
+        
+        <Divider />
+        <List
+          itemLayout="horizontal"
+          dataSource={cartItems}
+          renderItem={(item, index) => (
+            <List.Item>
+              <List.Item.Meta
+                avatar={
+                  <Avatar
+                    src={`"http://localhost:8000/storage/products/"${item.image}`}
+                  />
+                }
+                title={
+                  <a href={route("view.product", item.product_id)}>
+                    {item.product.name} ({item.quantity})
+                  </a>
+                }
+                // description={item.quantity}
+              />
+            </List.Item>
+          )}
+        />
+        {/* {cartItems.map((cartItem, index) => (
           <p key={index}>{cartItem.product.name}</p>
-        ))}
+        ))} */}
       </Drawer>
     </div>
   );
