@@ -8,8 +8,9 @@ import { FaCartArrowDown } from "react-icons/fa";
 
 // const cartItems = [];
 
-const Navbar = ({ app, cartItems }) => {
+const Navbar = ({ cartItems }) => {
   const auth = usePage().props.auth;
+  const app = usePage().props.app;
   const { data, setData, post } = useForm({
     cartItems: [],
   });
@@ -105,7 +106,7 @@ const Navbar = ({ app, cartItems }) => {
               <List.Item.Meta
                 avatar={
                   <Avatar
-                    src={`"http://localhost:8000/storage/products/"${item.image}`}
+                    src={app.storage_url + "/" + item.product.image}
                   />
                 }
                 title={
