@@ -17,7 +17,9 @@ class HomeController extends Controller
 
         $cartItems = [];
         if (Auth::check()) {
-            $cartItems = Cart::where("user_id", auth()->user()->id)->get();
+            $cartItems = Cart::with(["product"])
+                ->where("user_id", auth()->user()->id)
+                ->get();
         }
 
         return Inertia::render("Front/Home", [
