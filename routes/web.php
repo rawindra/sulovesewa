@@ -14,6 +14,7 @@ use Inertia\Inertia;
 Route::get('/', [HomeController::class, 'home'])->name('home');
 Route::get('/product/show/{product}', [HomeController::class, 'product'])->name('view.product');
 Route::post('/cart/add', [HomeController::class, 'cart'])->name('cart.store');
+Route::post('submit-review', [HomeController::class, 'storeReview'])->name('reviews.submit');
 
 Route::get('/admin/dashboard', function () {
     return Inertia::render('Back/Dashboard');

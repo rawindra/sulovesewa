@@ -2,7 +2,7 @@ import React from 'react';
 import { Menu } from 'antd';
 import AntCarousel from './AntCarousel';
 
-const CategoryNavWithSlider = ({ categories }) => {
+const CategoryNavWithSlider = ({ categories, sliders }) => {
     function transformCategories(categories) {
         return categories.map(category => {
             const transformed = {
@@ -48,7 +48,7 @@ const CategoryNavWithSlider = ({ categories }) => {
                     />
                 </div>
                 <div>
-                    <AntCarousel />
+                    <AntCarousel sliders={sliders} />
                 </div>
             </div>
         </div>

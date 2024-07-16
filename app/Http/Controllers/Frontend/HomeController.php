@@ -7,6 +7,7 @@ use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Review;
+use App\Models\Slider;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
@@ -21,14 +22,20 @@ class HomeController extends Controller
 
         return Inertia::render('Front/Home', [
             'categories' => $categories,
-            'products' => Product::paginate(10)
+            'products' => Product::paginate(10),
+            'sliders' => Slider::where('status', 1)->get(),
         ]);
     }
 
     public function product(Product $product)
     {
+        $reviews = $product->reviews;
+
         return Inertia::render('Front/ProductShow', [
             'product' => $product->load('category', 'brand'),
+            'reviews' => $reviews->load('user'),
+            'avgRating' => ceil($reviews->avg('rating')),
+            'totalRating' => $reviews->count('rating'),
         ]);
     }
 
@@ -52,7 +59,7 @@ class HomeController extends Controller
         return redirect()->back();
     }
 
-    public function review(Request $request)
+    public function storeReview(Request $request)
     {
         $validated = request()->validate([
             'rating' => ['required', 'numeric', 'min:1', 'max:5'],
