@@ -67,7 +67,7 @@ class HomeController extends Controller
             $cart->quantity = $request->quantity;
             $cart->save();
         }
-        return redirect()->back();
+        return redirect()->route('home');
     }
 
     public function order()
