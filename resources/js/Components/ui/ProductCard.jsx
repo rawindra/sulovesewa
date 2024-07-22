@@ -1,7 +1,16 @@
+import { Link, router } from "@inertiajs/react";
 import { Button, Card } from "antd";
 import React from "react";
 
-const ProductCard = ({ src, name, price }) => {
+const ProductCard = ({ src, product }) => {
+  const submit = (e) => {
+    e.preventDefault();
+    router.post(route('cart.store'), {
+      product_id: product.id,
+      quantity: 1,
+    });
+  }
+
   return (
     <Card
       hoverable
@@ -11,10 +20,16 @@ const ProductCard = ({ src, name, price }) => {
       cover={<img alt="example" src={src} className="h-[250px]" />}
     >
       <div className="flex flex-col gap-2 h-[80px] text-center">
-        <p className="font-semibold text-xs">{name}</p>
-        <p className="text-orange-500 font-bold">{price}</p>
+        <Link
+          href={route("view.product", product)}
+          className="m-auto"
+          key={product.id}
+        >
+          <p className="font-semibold text-xs">{product.name}</p>
+        </Link>
+        <p className="text-orange-500 font-bold">{product.price}</p>
       </div>
-      <Button className="w-full bg-orange-500 mt-1 text-white">
+      <Button className="w-full bg-orange-500 mt-1 text-white" onClick={submit}>
         Add to Cart
       </Button>
     </Card>

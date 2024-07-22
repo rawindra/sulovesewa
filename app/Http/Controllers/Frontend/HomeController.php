@@ -67,34 +67,33 @@ class HomeController extends Controller
             $cart->quantity = $request->quantity;
             $cart->save();
         }
-        return redirect()->route('home');
+        return Inertia::location('/');
     }
 
-    public function order()
+    public function order(Request $request)
     {
-        $carts = Cart::where("user_id", auth()->user()->id)->get();
         $order = new Order();
+        $order->user_id = auth()->user()->id;
         $order->order_date = now();
         $order->order_status = 'pending';
         $order->payment_status = 'unpaid';
         $order->customer_name = auth()->user()->name;
-        $order->customer_contact_number = '9089161393';
+        $order->customer_contact_number = '';
         $order->customer_address = '';
         $order->order_note = '';
         $order->save();
-        foreach ($carts as $cart) {
+        foreach ($request->cartItems as $cart) {
             $orderItems = new OrderItem;
             $orderItems->order_id = $order->id;
-            $orderItems->product_id = $cart->product_id;
-            $orderItems->quantity = $cart->quantity;
-            $orderItems->price = $cart->product->price * $cart->quantity;
+            $orderItems->product_id = $cart['product_id'];
+            $orderItems->quantity = $cart['quantity'];
+            $orderItems->price = $cart['product']['price'] * $cart['quantity'];
             $orderItems->save();
         }
         Cart::where("user_id", auth()->user()->id)->delete();
 
-        return redirect()->back();
     }
-    
+
 
     public function storeReview(Request $request)
     {
@@ -111,5 +110,10 @@ class HomeController extends Controller
         $review->save();
 
         return redirect()->back();
+    }
+
+    public function cartItemRemove($itemsId)
+    {
+        Cart::find($itemsId)->delete();
     }
 }

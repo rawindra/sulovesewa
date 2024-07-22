@@ -14,6 +14,7 @@ use Inertia\Inertia;
 Route::get('/', [HomeController::class, 'home'])->name('home');
 Route::get('/product/show/{product}', [HomeController::class, 'product'])->name('view.product');
 Route::post('/cart/add', [HomeController::class, 'cart'])->middleware('auth')->name('cart.store');
+Route::delete('/cart-items/remove/{itemsId}', [HomeController::class, 'cartItemRemove'])->middleware('auth')->name('cart.remove');
 Route::post('/place/order', [HomeController::class, 'order'])->middleware('auth')->name('place.order');
 Route::post('submit-review', [HomeController::class, 'storeReview'])->name('reviews.submit');
 

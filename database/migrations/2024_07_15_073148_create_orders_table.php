@@ -12,6 +12,7 @@ return new class extends Migration {
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->dateTime('order_date')->nullable()->default(now());
             $table->dateTime('delivery_date')->nullable();
             $table->enum('order_status', ['pending', 'purchased', 'cancelled'])->nullable()->default('pending');

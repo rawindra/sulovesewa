@@ -5,7 +5,7 @@ import React from "react";
 const FrontLayout = ({ app, children, cartItems }) => {
   return (
     <div className="overflow-x-hidden">
-      <Navbar cartItems={cartItems} />
+      <Navbar initialCartItems={cartItems} />
       <div>{children}</div>
       <Footer />
     </div>

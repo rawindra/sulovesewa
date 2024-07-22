@@ -5,15 +5,12 @@ import { Badge, Drawer, Divider, List, Avatar, Button } from "antd";
 
 import { FaPowerOff, FaSearch } from "react-icons/fa";
 import { FaCartArrowDown } from "react-icons/fa";
+import DangerButton from "../DangerButton";
 
-// const cartItems = [];
-
-const Navbar = ({ cartItems }) => {
+const Navbar = ({ initialCartItems }) => {
   const auth = usePage().props.auth;
   const app = usePage().props.app;
-  const { data, setData, post } = useForm({
-    cartItems: [],
-  });
+  const { data, destroy, post } = useForm();
   const [open, setOpen] = useState(false);
   const showDrawer = () => {
     setOpen(true);
@@ -22,10 +19,42 @@ const Navbar = ({ cartItems }) => {
     setOpen(false);
   };
 
+  const [cartItems, setCartItems] = useState(initialCartItems);
+
+  const addQuantity = (index) => {
+    const newCartItems = [...cartItems];
+    newCartItems[index].quantity += 1;
+    setCartItems(newCartItems);
+  };
+
+  const subtractQuantity = (index) => {
+    const newCartItems = [...cartItems];
+    if (newCartItems[index].quantity > 1) {
+      newCartItems[index].quantity -= 1;
+      setCartItems(newCartItems);
+    }
+  };
+
   const proceedOrder = (e) => {
     e.preventDefault();
-    post("place/order");
+    data.cartItems = cartItems;
+    post("place/order", {
+      onSuccess: () => {
+        setCartItems([]);
+        setOpen(false);
+      },
+    });
   };
+
+  const removeItem = (index) => {
+    confirm('Are you sure?')
+    const newCartItems = [...cartItems];
+    newCartItems.splice(index, 1);
+    setCartItems(newCartItems);
+
+    destroy(`/admin/cart-items/remove/${cartItems[index].id}`);
+  };
+
   return (
     <div className="p-6  bg-orange-500">
       <div className="flex items-center justify-between">
@@ -87,6 +116,7 @@ const Navbar = ({ cartItems }) => {
         closable={false}
         onClose={onClose}
         open={open}
+        width={600}
         footer={
           <Button
             type="primary"
@@ -98,30 +128,29 @@ const Navbar = ({ cartItems }) => {
         }
       >
         <Divider />
-        <List
-          itemLayout="horizontal"
-          dataSource={cartItems}
-          renderItem={(item, index) => (
-            <List.Item>
-              <List.Item.Meta
-                avatar={
-                  <Avatar
-                    src={app.storage_url + "/" + item.product.image}
-                  />
-                }
-                title={
-                  <a href={route("view.product", item.product_id)}>
-                    {item.product.name} ({item.quantity})
-                  </a>
-                }
-                // description={item.quantity}
-              />
-            </List.Item>
-          )}
-        />
-        {/* {cartItems.map((cartItem, index) => (
-          <p key={index}>{cartItem.product.name}</p>
-        ))} */}
+
+        {cartItems.map((cartItem, index) => (
+          <table key={index}>
+            <tbody>
+              <tr>
+                <td>
+                  <img className="w-20 h-20" src={app.storage_url + "/" + cartItem.product.image} />
+                </td>
+                <td>{cartItem.product.name}</td>
+                <td>{cartItem.quantity}</td>
+                <td>{cartItem.product.price * cartItem.quantity}</td>
+                <td>
+                  <div className="flex border border-gray-300 text-gray-600 divide-x divide-gray-300 w-max">
+                    <div className="h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none" onClick={() => subtractQuantity(index)}>-</div>
+                    <div className="h-8 w-8  text-base flex items-center justify-center">{cartItem.quantity}</div>
+                    <div className="h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none" onClick={() => addQuantity(index)}>+</div>
+                  </div>
+                </td>
+                <td><DangerButton className="btn-xs" onClick={() => removeItem(index)}>Remove</DangerButton></td>
+              </tr>
+            </tbody>
+          </table>
+        ))}
       </Drawer>
     </div>
   );
