@@ -116,4 +116,12 @@ class HomeController extends Controller
     {
         Cart::find($itemsId)->delete();
     }
+
+    public function orderList()
+    {
+        $orders = Order::with(['orderItems.product',])->where("user_id", auth()->user()->id)->get();
+        return Inertia::render("Front/OrderList", [
+            "orders" => $orders
+        ]);
+    }
 }

@@ -17,6 +17,7 @@ Route::post('/cart/add', [HomeController::class, 'cart'])->middleware('auth')->n
 Route::delete('/cart-items/remove/{itemsId}', [HomeController::class, 'cartItemRemove'])->middleware('auth')->name('cart.remove');
 Route::post('/place/order', [HomeController::class, 'order'])->middleware('auth')->name('place.order');
 Route::post('submit-review', [HomeController::class, 'storeReview'])->name('reviews.submit');
+Route::get('/orders', [HomeController::class, 'orderList'])->middleware('auth')->name('orders');
 
 Route::get('/admin/dashboard', function () {
     return Inertia::render('Back/Dashboard');

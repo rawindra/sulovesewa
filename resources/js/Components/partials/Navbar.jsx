@@ -74,15 +74,31 @@ const Navbar = ({ initialCartItems }) => {
           />
         </div>
         <div className="flex items-center">
+          <button className="pt-2" onClick={showDrawer}>
+            <Badge count={cartItems?.length}>
+              <FaCartArrowDown size={30} className="text-white" />
+            </Badge>
+          </button>
+
           {auth.user ? (
-            <Link
-              as="button"
-              href={route("logout")}
-              className="text-green-600 mr-3"
-              method="post"
-            >
-              <FaPowerOff size={20} />
-            </Link>
+            <div className="flex items-center gap-3">
+              <Link
+                href={route("orders")}
+                className="text-violet-600 font-medium ml-3"
+              >
+                Orders
+              </Link>
+
+              <Link
+                as="button"
+                href={route("logout")}
+                className="text-green-600 mr-3"
+                method="post"
+              >
+                <FaPowerOff size={20} />
+              </Link>
+            </div>
+
           ) : (
             <a href="/login/google">
               <button className="font-medium bg-white text-sm text-orange-500 py-2 px-10 border rounded-md mx-5 ">
@@ -91,11 +107,6 @@ const Navbar = ({ initialCartItems }) => {
             </a>
           )}
 
-          <button className="pt-2" onClick={showDrawer}>
-            <Badge count={cartItems?.length}>
-              <FaCartArrowDown size={30} className="text-white" />
-            </Badge>
-          </button>
         </div>
       </div>
       <div className="block md:hidden relative mt-2">
@@ -129,7 +140,7 @@ const Navbar = ({ initialCartItems }) => {
       >
         <Divider />
 
-        {cartItems.map((cartItem, index) => (
+        {cartItems?.map((cartItem, index) => (
           <table key={index}>
             <tbody>
               <tr>
